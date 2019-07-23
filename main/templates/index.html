@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Board</title>
+    <style>
+        a:visited {
+            color:blue
+        }
+    </style>
+</head>
+<body>
+    <h1>Messages</h1>
+    <div id="message_display">
+        {% for id, nickname, email, date, content_lines in messages %}
+            <p>>>> No.{{ id }}, Nickname: {{ nickname }}, Email: {{ email }}, {{ date }}</p>
+            {% for line in content_lines %}
+                <p>{{ line }}</p>
+            {% endfor %}
+            <hr />
+        {% endfor %}
+    </div>
+    <div id="pagination">
+        {% for i_page, i_display in range_n_pages %}
+            {% if i_page != current_page %}
+                <span><a href="/index/?page={{i_page}}">{{i_display}}</a></span>
+            {% else %}
+                <span>{{i_display}}</span>
+            {% endif %}
+            {% if i_display != n_pages %}
+                |
+            {% endif %}
+        {% endfor %}
+    </div>
+    <h1>New Message</h1>
+    <div id="message_form">
+        <form method="POST" class="post-form" action="/newmessage/?page={{current_page}}">
+           {% csrf_token %}
+            <label for="nickname">Your nickname: </label>
+            <input name="nickname" type="text" value="{{ cur_nickname }}">
+            {{ nickname_error }}
+            <label for="email">Your Email: </label>
+            <input name="email" type="email" value="{{ cur_email }}">
+            {{ email_error }}
+            <p>
+                <textarea rows="5" cols="80" name="content">{{ cur_content }}</textarea>
+            </p>
+            <input type="submit" value="Submit">
+            {{ content_error }}
+        </form>
+    </div>
+</body>
+</html>
