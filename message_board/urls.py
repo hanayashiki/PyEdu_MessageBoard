@@ -21,7 +21,7 @@ from main.views import fake_index
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
-    re_path(r'index/|', index),
+    re_path(r'index/|^$', index),
     path(r'newmessage/', new_message),
 
     path('fake_index/', fake_index),

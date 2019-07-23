@@ -31,12 +31,15 @@ def get_messages(lo: int, hi: int):
 
 
 def new_message(request: HttpRequest):
+  print(request.method)
   if request.method == 'POST':
+    print("?")
     if not request.session.exists(request.session.session_key):
       return HttpResponseForbidden()
     else:
       sess_key = request.session.session_key
       if sess_key not in sessID_to_time:
+        print("??")
         sessID_to_time[sess_key] = time.time()
       else:
         if time.time() - sessID_to_time[sess_key] < MIN_NEW_MESSAGE_INTERVAL:
