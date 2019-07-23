@@ -20,9 +20,9 @@ from main.views import index, new_message
 from main.views import fake_index
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('index/', index),
-    path('newmessage/', new_message),
+    path(r'(admin/|/?)', admin.site.urls),
+    path(r'index/', index),
+    path(r'newmessage/', new_message),
 
     path('fake_index/', fake_index),
 ]
